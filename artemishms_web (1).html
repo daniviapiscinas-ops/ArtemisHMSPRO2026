@@ -1,0 +1,1016 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ARTEMIS HMS · Hotel Management System</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=Raleway:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --navy:    #0B1829;
+  --navy2:   #0F2040;
+  --gold:    #C9A84C;
+  --gold2:   #E8C96A;
+  --gold-dim:rgba(201,168,76,0.12);
+  --white:   #F0F4F8;
+  --muted:   #7A9BBB;
+  --border:  rgba(201,168,76,0.2);
+}
+
+*{margin:0;padding:0;box-sizing:border-box;}
+
+html{scroll-behavior:smooth;}
+
+body{
+  font-family:'Raleway',sans-serif;
+  background:var(--navy);
+  color:var(--white);
+  overflow-x:hidden;
+}
+
+/* ── GRID BACKGROUND ── */
+body::before{
+  content:'';
+  position:fixed;inset:0;z-index:0;
+  background-image:
+    linear-gradient(rgba(201,168,76,0.04) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(201,168,76,0.04) 1px,transparent 1px);
+  background-size:60px 60px;
+  pointer-events:none;
+}
+
+/* ── NAV ── */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:100;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 5%;
+  height:70px;
+  background:rgba(11,24,41,0.92);
+  backdrop-filter:blur(12px);
+  border-bottom:1px solid var(--border);
+}
+
+.nav-logo{
+  display:flex;align-items:center;gap:12px;
+  font-family:'Cinzel',serif;
+  font-size:18px;font-weight:700;
+  letter-spacing:2px;
+  color:var(--white);
+}
+
+.nav-logo span{color:var(--gold);}
+
+.nav-links{
+  display:flex;align-items:center;gap:32px;
+  list-style:none;
+}
+
+.nav-links a{
+  color:var(--muted);
+  text-decoration:none;
+  font-size:13px;
+  font-weight:600;
+  letter-spacing:1.5px;
+  text-transform:uppercase;
+  transition:color 0.2s;
+}
+
+.nav-links a:hover{color:var(--gold);}
+
+.nav-cta{
+  background:var(--gold);
+  color:var(--navy) !important;
+  padding:10px 24px;
+  border-radius:4px;
+  font-family:'Cinzel',serif !important;
+  font-size:11px !important;
+  font-weight:700 !important;
+  letter-spacing:2px !important;
+  transition:opacity 0.2s !important;
+}
+
+.nav-cta:hover{opacity:0.85;color:var(--navy) !important;}
+
+/* ── HERO ── */
+.hero{
+  position:relative;
+  min-height:100vh;
+  display:flex;align-items:center;justify-content:center;
+  text-align:center;
+  padding:120px 5% 80px;
+  overflow:hidden;
+}
+
+.hero::before{
+  content:'';
+  position:absolute;
+  top:-200px;left:50%;
+  transform:translateX(-50%);
+  width:800px;height:800px;
+  background:radial-gradient(ellipse at center, rgba(201,168,76,0.08) 0%, transparent 70%);
+  pointer-events:none;
+}
+
+.hero-content{
+  position:relative;z-index:1;
+  max-width:900px;
+}
+
+.hero-badge{
+  display:inline-block;
+  background:var(--gold-dim);
+  border:1px solid var(--border);
+  border-radius:20px;
+  padding:6px 20px;
+  font-size:11px;
+  font-weight:700;
+  color:var(--gold);
+  letter-spacing:3px;
+  text-transform:uppercase;
+  margin-bottom:32px;
+  animation:fadeUp 0.8s ease both;
+}
+
+.hero h1{
+  font-family:'Cinzel',serif;
+  font-size:clamp(36px,7vw,80px);
+  font-weight:900;
+  line-height:1.05;
+  letter-spacing:4px;
+  margin-bottom:8px;
+  animation:fadeUp 0.8s 0.1s ease both;
+}
+
+.hero h1 .gold{color:var(--gold);}
+
+.hero-sub{
+  font-family:'Cinzel',serif;
+  font-size:clamp(12px,2vw,16px);
+  color:var(--muted);
+  letter-spacing:5px;
+  text-transform:uppercase;
+  margin-bottom:28px;
+  animation:fadeUp 0.8s 0.2s ease both;
+}
+
+.hero-divider{
+  width:80px;height:2px;
+  background:linear-gradient(90deg,transparent,var(--gold),transparent);
+  margin:0 auto 32px;
+  animation:fadeUp 0.8s 0.3s ease both;
+}
+
+.hero p{
+  font-size:clamp(15px,2vw,19px);
+  color:var(--muted);
+  line-height:1.8;
+  max-width:680px;
+  margin:0 auto 48px;
+  font-weight:400;
+  animation:fadeUp 0.8s 0.4s ease both;
+}
+
+.hero-btns{
+  display:flex;gap:16px;justify-content:center;flex-wrap:wrap;
+  animation:fadeUp 0.8s 0.5s ease both;
+}
+
+.btn-primary{
+  background:linear-gradient(135deg,var(--gold),#A07830);
+  color:var(--navy);
+  padding:16px 40px;
+  border-radius:4px;
+  font-family:'Cinzel',serif;
+  font-size:13px;
+  font-weight:700;
+  letter-spacing:2px;
+  text-decoration:none;
+  transition:transform 0.2s,opacity 0.2s;
+}
+
+.btn-primary:hover{transform:translateY(-2px);opacity:0.9;}
+
+.btn-secondary{
+  background:transparent;
+  color:var(--white);
+  padding:16px 40px;
+  border-radius:4px;
+  border:1px solid var(--border);
+  font-family:'Cinzel',serif;
+  font-size:13px;
+  font-weight:600;
+  letter-spacing:2px;
+  text-decoration:none;
+  transition:border-color 0.2s,color 0.2s;
+}
+
+.btn-secondary:hover{border-color:var(--gold);color:var(--gold);}
+
+/* ── STATS ── */
+.stats{
+  position:relative;z-index:1;
+  display:flex;justify-content:center;gap:60px;flex-wrap:wrap;
+  padding:60px 5%;
+  border-top:1px solid var(--border);
+  border-bottom:1px solid var(--border);
+  background:rgba(15,32,64,0.5);
+}
+
+.stat-item{text-align:center;}
+
+.stat-num{
+  font-family:'Cinzel',serif;
+  font-size:42px;
+  font-weight:700;
+  color:var(--gold);
+  display:block;
+  line-height:1;
+  margin-bottom:8px;
+}
+
+.stat-label{
+  font-size:11px;
+  color:var(--muted);
+  letter-spacing:2px;
+  text-transform:uppercase;
+}
+
+/* ── SECTIONS ── */
+section{
+  position:relative;z-index:1;
+  padding:100px 5%;
+}
+
+.section-label{
+  font-size:10px;
+  font-weight:700;
+  color:var(--gold);
+  letter-spacing:4px;
+  text-transform:uppercase;
+  margin-bottom:16px;
+}
+
+.section-title{
+  font-family:'Cinzel',serif;
+  font-size:clamp(24px,4vw,42px);
+  font-weight:700;
+  line-height:1.2;
+  margin-bottom:20px;
+}
+
+.section-divider{
+  width:60px;height:2px;
+  background:var(--gold);
+  margin-bottom:24px;
+  border-radius:1px;
+}
+
+.section-text{
+  font-size:16px;
+  color:var(--muted);
+  line-height:1.8;
+  max-width:600px;
+}
+
+/* ── MÓDULOS ── */
+.modulos-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(300px,1fr));
+  gap:24px;
+  margin-top:60px;
+}
+
+.modulo-card{
+  background:rgba(15,32,64,0.6);
+  border:1px solid var(--border);
+  border-radius:12px;
+  padding:32px;
+  transition:border-color 0.2s,transform 0.2s;
+  position:relative;
+  overflow:hidden;
+}
+
+.modulo-card::before{
+  content:'';
+  position:absolute;top:0;left:0;right:0;height:2px;
+  background:linear-gradient(90deg,transparent,var(--gold),transparent);
+  opacity:0;
+  transition:opacity 0.2s;
+}
+
+.modulo-card:hover{
+  border-color:rgba(201,168,76,0.4);
+  transform:translateY(-4px);
+}
+
+.modulo-card:hover::before{opacity:1;}
+
+.modulo-icon{
+  font-size:32px;
+  margin-bottom:16px;
+  display:block;
+}
+
+.modulo-title{
+  font-family:'Cinzel',serif;
+  font-size:14px;
+  font-weight:700;
+  color:var(--white);
+  letter-spacing:1px;
+  margin-bottom:10px;
+}
+
+.modulo-desc{
+  font-size:13px;
+  color:var(--muted);
+  line-height:1.7;
+}
+
+/* ── VENTAJAS ── */
+.ventajas{
+  background:rgba(15,32,64,0.4);
+  border-top:1px solid var(--border);
+  border-bottom:1px solid var(--border);
+}
+
+.ventajas-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+  gap:40px;
+  margin-top:60px;
+}
+
+.ventaja-item{
+  display:flex;
+  gap:20px;
+  align-items:flex-start;
+}
+
+.ventaja-num{
+  font-family:'Cinzel',serif;
+  font-size:42px;
+  font-weight:900;
+  color:rgba(201,168,76,0.2);
+  line-height:1;
+  flex-shrink:0;
+  width:50px;
+}
+
+.ventaja-title{
+  font-family:'Cinzel',serif;
+  font-size:14px;
+  font-weight:700;
+  color:var(--white);
+  margin-bottom:8px;
+  letter-spacing:0.5px;
+}
+
+.ventaja-text{
+  font-size:13px;
+  color:var(--muted);
+  line-height:1.7;
+}
+
+/* ── PRECIOS ── */
+.precios-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+  gap:24px;
+  margin-top:60px;
+  max-width:900px;
+  margin-left:auto;
+  margin-right:auto;
+}
+
+.precio-card{
+  background:rgba(15,32,64,0.6);
+  border:1px solid var(--border);
+  border-radius:12px;
+  padding:40px 32px;
+  text-align:center;
+  transition:transform 0.2s;
+}
+
+.precio-card:hover{transform:translateY(-4px);}
+
+.precio-card.featured{
+  background:var(--navy2);
+  border:2px solid var(--gold);
+  position:relative;
+}
+
+.precio-card.featured::before{
+  content:'MÁS POPULAR';
+  position:absolute;top:-14px;left:50%;transform:translateX(-50%);
+  background:var(--gold);
+  color:var(--navy);
+  font-size:9px;
+  font-weight:800;
+  letter-spacing:2px;
+  padding:4px 14px;
+  border-radius:10px;
+  font-family:'Cinzel',serif;
+}
+
+.precio-label{
+  font-size:10px;
+  font-weight:700;
+  color:var(--muted);
+  letter-spacing:3px;
+  text-transform:uppercase;
+  margin-bottom:20px;
+}
+
+.precio-num{
+  font-family:'Cinzel',serif;
+  font-size:52px;
+  font-weight:700;
+  color:var(--gold);
+  line-height:1;
+  margin-bottom:4px;
+}
+
+.precio-per{
+  font-size:12px;
+  color:var(--muted);
+  margin-bottom:24px;
+}
+
+.precio-divider{
+  height:1px;
+  background:var(--border);
+  margin:20px 0;
+}
+
+.precio-habs{
+  font-size:13px;
+  color:var(--white);
+  margin-bottom:8px;
+  font-weight:600;
+}
+
+.precio-feat{
+  font-size:12px;
+  color:var(--muted);
+  line-height:1.8;
+}
+
+.precio-oferta{
+  background:rgba(201,168,76,0.08);
+  border:1px solid rgba(201,168,76,0.3);
+  border-radius:8px;
+  padding:16px 24px;
+  text-align:center;
+  margin-top:32px;
+  font-size:14px;
+  color:var(--gold);
+  max-width:900px;
+  margin-left:auto;
+  margin-right:auto;
+}
+
+.precio-oferta strong{font-weight:700;}
+
+/* ── NORMATIVA ── */
+.normativa-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+  gap:16px;
+  margin-top:48px;
+}
+
+.norma-item{
+  background:rgba(15,32,64,0.6);
+  border:1px solid var(--border);
+  border-radius:8px;
+  padding:20px;
+  text-align:center;
+}
+
+.norma-badge{
+  font-family:'Cinzel',serif;
+  font-size:11px;
+  font-weight:700;
+  color:var(--gold);
+  letter-spacing:1px;
+  display:block;
+  margin-bottom:8px;
+}
+
+.norma-text{
+  font-size:12px;
+  color:var(--muted);
+  line-height:1.6;
+}
+
+/* ── CTA FINAL ── */
+.cta-final{
+  text-align:center;
+  background:linear-gradient(135deg,rgba(201,168,76,0.06),rgba(15,32,64,0.8));
+  border-top:1px solid var(--border);
+}
+
+.cta-final h2{
+  font-family:'Cinzel',serif;
+  font-size:clamp(24px,4vw,48px);
+  font-weight:700;
+  margin-bottom:16px;
+}
+
+.cta-final h2 span{color:var(--gold);}
+
+.cta-final p{
+  font-size:16px;
+  color:var(--muted);
+  margin-bottom:40px;
+  line-height:1.7;
+}
+
+/* ── CONTACTO ── */
+.contacto-form{
+  max-width:600px;
+  margin:0 auto;
+  display:flex;flex-direction:column;gap:16px;
+}
+
+.form-row{display:flex;gap:16px;}
+
+.form-field{
+  flex:1;
+  display:flex;flex-direction:column;gap:8px;
+}
+
+.form-field label{
+  font-size:11px;
+  font-weight:700;
+  color:var(--muted);
+  letter-spacing:2px;
+  text-transform:uppercase;
+}
+
+.form-field input,
+.form-field select,
+.form-field textarea{
+  background:rgba(15,32,64,0.8);
+  border:1px solid var(--border);
+  border-radius:6px;
+  padding:14px 16px;
+  color:var(--white);
+  font-family:'Raleway',sans-serif;
+  font-size:14px;
+  transition:border-color 0.2s;
+  outline:none;
+}
+
+.form-field input:focus,
+.form-field select:focus,
+.form-field textarea:focus{
+  border-color:var(--gold);
+}
+
+.form-field textarea{min-height:120px;resize:vertical;}
+
+.form-field select option{background:var(--navy2);}
+
+.form-submit{
+  background:linear-gradient(135deg,var(--gold),#A07830);
+  color:var(--navy);
+  border:none;
+  padding:16px;
+  border-radius:6px;
+  font-family:'Cinzel',serif;
+  font-size:14px;
+  font-weight:700;
+  letter-spacing:2px;
+  cursor:pointer;
+  transition:opacity 0.2s,transform 0.1s;
+  margin-top:8px;
+}
+
+.form-submit:hover{opacity:0.9;transform:translateY(-1px);}
+
+/* ── FOOTER ── */
+footer{
+  position:relative;z-index:1;
+  background:rgba(6,12,24,0.95);
+  border-top:1px solid var(--border);
+  padding:48px 5% 32px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  flex-wrap:wrap;
+  gap:24px;
+}
+
+.footer-brand{
+  font-family:'Cinzel',serif;
+  font-size:16px;
+  font-weight:700;
+  letter-spacing:2px;
+}
+
+.footer-brand span{color:var(--gold);}
+
+.footer-sub{
+  font-size:11px;
+  color:var(--muted);
+  margin-top:4px;
+  letter-spacing:1px;
+}
+
+.footer-links{
+  display:flex;gap:24px;flex-wrap:wrap;
+}
+
+.footer-links a{
+  font-size:12px;
+  color:var(--muted);
+  text-decoration:none;
+  transition:color 0.2s;
+}
+
+.footer-links a:hover{color:var(--gold);}
+
+.footer-copy{
+  font-size:11px;
+  color:rgba(122,155,187,0.5);
+  width:100%;
+  text-align:center;
+  padding-top:24px;
+  border-top:1px solid rgba(201,168,76,0.08);
+  margin-top:16px;
+}
+
+/* ── SVG LOGO ── */
+.logo-svg{width:36px;height:36px;flex-shrink:0;}
+
+/* ── ANIMATIONS ── */
+@keyframes fadeUp{
+  from{opacity:0;transform:translateY(24px);}
+  to{opacity:1;transform:translateY(0);}
+}
+
+.reveal{
+  opacity:0;
+  transform:translateY(32px);
+  transition:opacity 0.7s ease,transform 0.7s ease;
+}
+
+.reveal.visible{
+  opacity:1;
+  transform:translateY(0);
+}
+
+/* ── MOBILE ── */
+@media(max-width:768px){
+  .nav-links{display:none;}
+  .form-row{flex-direction:column;}
+  .stats{gap:32px;}
+  footer{flex-direction:column;text-align:center;}
+  .footer-links{justify-content:center;}
+}
+</style>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAgMTAwIj4KICA8cmVjdCB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgcng9IjIyIiBmaWxsPSIjRkZGRkZGIi8+CiAgPGxpbmUgeDE9IjIwIiB5MT0iODIiIHgyPSI1MCIgeTI9IjE0IiBzdHJva2U9IiMwRDFGM0MiIHN0cm9rZS13aWR0aD0iMTAiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIvPgogIDxsaW5lIHgxPSI4MCIgeTE9IjgyIiB4Mj0iNTAiIHkyPSIxNCIgc3Ryb2tlPSIjMEQxRjNDIiBzdHJva2Utd2lkdGg9IjEwIiBzdHJva2UtbGluZWNhcD0icm91bmQiLz4KICA8cGF0aCBkPSJNIDE3IDYzIFEgNTAgMzggODMgNjMiIGZpbGw9Im5vbmUiIHN0cm9rZT0iI0M5QTg0QyIgc3Ryb2tlLXdpZHRoPSI3IiBzdHJva2UtbGluZWNhcD0icm91bmQiLz4KICA8cGF0aCBkPSJNIDEyIDY4IFEgMTQgNjMgMTcgNjMiIGZpbGw9Im5vbmUiIHN0cm9rZT0iI0M5QTg0QyIgc3Ryb2tlLXdpZHRoPSI3IiBzdHJva2UtbGluZWNhcD0icm91bmQiLz4KICA8cGF0aCBkPSJNIDgzIDYzIFEgODYgNjMgODggNjgiIGZpbGw9Im5vbmUiIHN0cm9rZT0iI0M5QTg0QyIgc3Ryb2tlLXdpZHRoPSI3IiBzdHJva2UtbGluZWNhcD0icm91bmQiLz4KPC9zdmc+">
+<link rel="apple-touch-icon" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAgMTAwIj4KICA8cmVjdCB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgcng9IjIyIiBmaWxsPSIjRkZGRkZGIi8+CiAgPGxpbmUgeDE9IjIwIiB5MT0iODIiIHgyPSI1MCIgeTI9IjE0IiBzdHJva2U9IiMwRDFGM0MiIHN0cm9rZS13aWR0aD0iMTAiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIvPgogIDxsaW5lIHgxPSI4MCIgeTE9IjgyIiB4Mj0iNTAiIHkyPSIxNCIgc3Ryb2tlPSIjMEQxRjNDIiBzdHJva2Utd2lkdGg9IjEwIiBzdHJva2UtbGluZWNhcD0icm91bmQiLz4KICA8cGF0aCBkPSJNIDE3IDYzIFEgNTAgMzggODMgNjMiIGZpbGw9Im5vbmUiIHN0cm9rZT0iI0M5QTg0QyIgc3Ryb2tlLXdpZHRoPSI3IiBzdHJva2UtbGluZWNhcD0icm91bmQiLz4KICA8cGF0aCBkPSJNIDEyIDY4IFEgMTQgNjMgMTcgNjMiIGZpbGw9Im5vbmUiIHN0cm9rZT0iI0M5QTg0QyIgc3Ryb2tlLXdpZHRoPSI3IiBzdHJva2UtbGluZWNhcD0icm91bmQiLz4KICA8cGF0aCBkPSJNIDgzIDYzIFEgODYgNjMgODggNjgiIGZpbGw9Im5vbmUiIHN0cm9rZT0iI0M5QTg0QyIgc3Ryb2tlLXdpZHRoPSI3IiBzdHJva2UtbGluZWNhcD0icm91bmQiLz4KPC9zdmc+">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Artemis HMS">
+<meta name="theme-color" content="#0D1F3C">
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">
+    <svg class="logo-svg" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <rect width="100" height="100" rx="16" fill="#0D1F3C"/>
+      <line x1="20" y1="82" x2="50" y2="14" stroke="#E8EFF8" stroke-width="9" stroke-linecap="round"/>
+      <line x1="80" y1="82" x2="50" y2="14" stroke="#E8EFF8" stroke-width="9" stroke-linecap="round"/>
+      <path d="M17 63 Q50 38 83 63" fill="none" stroke="#C9A84C" stroke-width="6.5" stroke-linecap="round"/>
+      <path d="M12 68 Q14 63 17 63" fill="none" stroke="#C9A84C" stroke-width="6.5" stroke-linecap="round"/>
+      <path d="M83 63 Q86 63 88 68" fill="none" stroke="#C9A84C" stroke-width="6.5" stroke-linecap="round"/>
+    </svg>
+    ARTEMIS <span>HMS</span>
+  </div>
+  <ul class="nav-links">
+    <li><a href="#modulos">Módulos</a></li>
+    <li><a href="#ventajas">Ventajas</a></li>
+    <li><a href="#precios">Precios</a></li>
+    <li><a href="#contacto">Contacto</a></li>
+    <li><a href="https://app.artemishms.com" class="nav-cta">Acceder</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-content">
+    <div class="hero-badge">Hotel Management System</div>
+    <h1>Gestión hotelera<br>de <span class="gold">élite</span></h1>
+    <div class="hero-sub">Diseñado para el mercado español</div>
+    <div class="hero-divider"></div>
+    <p>Todo lo que su equipo necesita en una sola plataforma. Operaciones, mantenimiento, APPCC, Legionela y más — en tiempo real desde cualquier dispositivo.</p>
+    <div class="hero-btns">
+      <a href="#contacto" class="btn-primary">Solicitar demo gratuita</a>
+      <a href="#modulos" class="btn-secondary">Ver módulos →</a>
+    </div>
+  </div>
+</section>
+
+<!-- STATS -->
+<div class="stats">
+  <div class="stat-item reveal">
+    <span class="stat-num">10+</span>
+    <span class="stat-label">Módulos integrados</span>
+  </div>
+  <div class="stat-item reveal">
+    <span class="stat-num">100%</span>
+    <span class="stat-label">Normativa española</span>
+  </div>
+  <div class="stat-item reveal">
+    <span class="stat-num">∞</span>
+    <span class="stat-label">Dispositivos simultáneos</span>
+  </div>
+  <div class="stat-item reveal">
+    <span class="stat-num">0</span>
+    <span class="stat-label">Instalaciones necesarias</span>
+  </div>
+</div>
+
+<!-- MÓDULOS -->
+<section id="modulos">
+  <div class="reveal">
+    <div class="section-label">Funcionalidades</div>
+    <h2 class="section-title">Todo en una sola plataforma</h2>
+    <div class="section-divider"></div>
+    <p class="section-text">Desde las órdenes de trabajo hasta el control sanitario obligatorio. Cada módulo diseñado específicamente para hoteles españoles.</p>
+  </div>
+
+  <div class="modulos-grid">
+    <div class="modulo-card reveal">
+      <span class="modulo-icon">🔔</span>
+      <div class="modulo-title">Órdenes de Trabajo</div>
+      <div class="modulo-desc">Crea, asigna y sigue incidencias en tiempo real. Prioridades, departamentos y notificaciones automáticas para todo el equipo.</div>
+    </div>
+    <div class="modulo-card reveal">
+      <span class="modulo-icon">🏨</span>
+      <div class="modulo-title">Room Status</div>
+      <div class="modulo-desc">Estado de cada habitación al instante: ocupada, libre, en limpieza o bloqueada. Visible para todos los departamentos.</div>
+    </div>
+    <div class="modulo-card reveal">
+      <span class="modulo-icon">📋</span>
+      <div class="modulo-title">Tareas Programadas</div>
+      <div class="modulo-desc">Tareas diarias y flexibles con registro de cumplimiento. Tipos de registro numérico, temperatura, texto libre o correcto/incorrecto.</div>
+    </div>
+    <div class="modulo-card reveal">
+      <span class="modulo-icon">🍽️</span>
+      <div class="modulo-title">APPCC</div>
+      <div class="modulo-desc">Control de temperaturas, aperturas y cierres de cocina. Cumplimiento normativo automatizado con alertas en tiempo real.</div>
+    </div>
+    <div class="modulo-card reveal">
+      <span class="modulo-icon">🏊</span>
+      <div class="modulo-title">Control de Piscinas</div>
+      <div class="modulo-desc">Registro de parámetros según RD 742/2013. Alertas automáticas y libro de autocontrol exportable a PDF para inspecciones.</div>
+    </div>
+    <div class="modulo-card reveal">
+      <span class="modulo-icon">🧫</span>
+      <div class="modulo-title">Control Legionela</div>
+      <div class="modulo-desc">Temperaturas ACS, analíticas, purgado de grifos y control de habitaciones según RD 487/2022. Exportación del libro oficial.</div>
+    </div>
+    <div class="modulo-card reveal">
+      <span class="modulo-icon">📦</span>
+      <div class="modulo-title">Inventario</div>
+      <div class="modulo-desc">Control de stock por departamento. Entradas, salidas y ajustes con historial completo de movimientos.</div>
+    </div>
+    <div class="modulo-card reveal">
+      <span class="modulo-icon">📊</span>
+      <div class="modulo-title">Auditorías</div>
+      <div class="modulo-desc">Auditorías internas con puntuación, observaciones y exportación a PDF profesional para la dirección.</div>
+    </div>
+    <div class="modulo-card reveal">
+      <span class="modulo-icon">🔑</span>
+      <div class="modulo-title">Control de Llaves</div>
+      <div class="modulo-desc">Registro de entrega y devolución de llaves maestras con historial completo de responsables y horarios.</div>
+    </div>
+    <div class="modulo-card reveal">
+      <span class="modulo-icon">📒</span>
+      <div class="modulo-title">Libro de Turno</div>
+      <div class="modulo-desc">Notas de traspaso, Lost & Found y comunicación interna entre departamentos en tiempo real.</div>
+    </div>
+  </div>
+</section>
+
+<!-- VENTAJAS -->
+<section id="ventajas" class="ventajas">
+  <div class="reveal">
+    <div class="section-label">Por qué elegirnos</div>
+    <h2 class="section-title">Hecho para el mercado español</h2>
+    <div class="section-divider"></div>
+  </div>
+
+  <div class="ventajas-grid">
+    <div class="ventaja-item reveal">
+      <div class="ventaja-num">01</div>
+      <div>
+        <div class="ventaja-title">Normativa integrada de serie</div>
+        <div class="ventaja-text">APPCC, Legionela y piscinas según la normativa española vigente. No son módulos extra — están incluidos en todos los planes desde el primer día.</div>
+      </div>
+    </div>
+    <div class="ventaja-item reveal">
+      <div class="ventaja-num">02</div>
+      <div>
+        <div class="ventaja-title">Sin instalaciones</div>
+        <div class="ventaja-text">Acceso inmediato desde cualquier navegador. Su equipo entra en minutos desde el móvil con número de empleado y PIN personal.</div>
+      </div>
+    </div>
+    <div class="ventaja-item reveal">
+      <div class="ventaja-num">03</div>
+      <div>
+        <div class="ventaja-title">Tiempo real en todos los dispositivos</div>
+        <div class="ventaja-text">Cuando un operario registra una tarea, el director lo ve al instante. Sin retrasos, sin llamadas innecesarias, sin papeles.</div>
+      </div>
+    </div>
+    <div class="ventaja-item reveal">
+      <div class="ventaja-num">04</div>
+      <div>
+        <div class="ventaja-title">Precio muy por debajo del mercado</div>
+        <div class="ventaja-text">Sistemas equivalentes como Hotelkit o Quore cuestan entre 300€ y 800€/mes. ARTEMIS HMS ofrece más por una fracción del precio.</div>
+      </div>
+    </div>
+    <div class="ventaja-item reveal">
+      <div class="ventaja-num">05</div>
+      <div>
+        <div class="ventaja-title">Soporte directo en español</div>
+        <div class="ventaja-text">Acompañamiento en la implantación, formación del equipo y soporte técnico directo con el equipo de desarrollo. En español, siempre.</div>
+      </div>
+    </div>
+    <div class="ventaja-item reveal">
+      <div class="ventaja-num">06</div>
+      <div>
+        <div class="ventaja-title">Listo para inspecciones</div>
+        <div class="ventaja-text">Todos los registros exportables a PDF en formato oficial. Cuando llegue una inspección sanitaria, todo está a un clic.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- NORMATIVA -->
+<section>
+  <div class="reveal" style="text-align:center;max-width:700px;margin:0 auto;">
+    <div class="section-label">Cumplimiento legal</div>
+    <h2 class="section-title">Normativa española incluida</h2>
+    <div class="section-divider" style="margin:0 auto 24px;"></div>
+    <p class="section-text" style="margin:0 auto;">ARTEMIS HMS incorpora los controles obligatorios exigidos por la legislación española para establecimientos hoteleros.</p>
+  </div>
+  <div class="normativa-grid reveal" style="margin-top:48px;max-width:900px;margin-left:auto;margin-right:auto;">
+    <div class="norma-item">
+      <span class="norma-badge">RD 742/2013</span>
+      <div class="norma-text">Control de piscinas de uso colectivo. Registro de cloro, pH, turbidez y temperatura.</div>
+    </div>
+    <div class="norma-item">
+      <span class="norma-badge">RD 487/2022</span>
+      <div class="norma-text">Prevención y control de Legionela. Temperaturas ACS, purgados y analíticas.</div>
+    </div>
+    <div class="norma-item">
+      <span class="norma-badge">Reg. CE 852/2004</span>
+      <div class="norma-text">Sistema APPCC para establecimientos con servicio de alimentación.</div>
+    </div>
+    <div class="norma-item">
+      <span class="norma-badge">ISO 22000</span>
+      <div class="norma-text">Gestión de la seguridad alimentaria. Registros y trazabilidad completa.</div>
+    </div>
+  </div>
+</section>
+
+<!-- PRECIOS -->
+<section id="precios" style="background:rgba(15,32,64,0.3);border-top:1px solid var(--border);">
+  <div class="reveal" style="text-align:center;">
+    <div class="section-label">Inversión</div>
+    <h2 class="section-title">Planes y precios</h2>
+    <div class="section-divider" style="margin:0 auto 24px;"></div>
+    <p class="section-text" style="margin:0 auto;">Todos los módulos incluidos en todos los planes. Sin costes ocultos.</p>
+  </div>
+
+  <div class="precios-grid">
+    <div class="precio-card reveal">
+      <div class="precio-label">Pequeño</div>
+      <div class="precio-num">149€</div>
+      <div class="precio-per">/mes · hasta 50 habitaciones</div>
+      <div class="precio-divider"></div>
+      <div class="precio-habs">Todos los módulos incluidos</div>
+      <div class="precio-feat">Usuarios ilimitados<br>Soporte incluido<br>Formación del equipo</div>
+    </div>
+    <div class="precio-card featured reveal">
+      <div class="precio-label">Mediano</div>
+      <div class="precio-num">299€</div>
+      <div class="precio-per">/mes · 50–200 habitaciones</div>
+      <div class="precio-divider"></div>
+      <div class="precio-habs">Todos los módulos incluidos</div>
+      <div class="precio-feat">Usuarios ilimitados<br>Soporte prioritario<br>Formación del equipo<br>Onboarding personalizado</div>
+    </div>
+    <div class="precio-card reveal">
+      <div class="precio-label">Grande</div>
+      <div class="precio-num">499€</div>
+      <div class="precio-per">/mes · más de 200 habitaciones</div>
+      <div class="precio-divider"></div>
+      <div class="precio-habs">Todos los módulos incluidos</div>
+      <div class="precio-feat">Usuarios ilimitados<br>Soporte dedicado 24/7<br>Formación presencial<br>Configuración personalizada</div>
+    </div>
+  </div>
+
+  <div class="precio-oferta reveal" style="margin-top:40px;">
+    🎁 <strong>Oferta de lanzamiento:</strong> Primer mes completamente gratuito sin compromiso. Implantación y formación del equipo incluidas en todos los planes.
+  </div>
+</section>
+
+<!-- CONTACTO -->
+<section id="contacto" class="cta-final">
+  <div class="reveal">
+    <div class="section-label">Contacto</div>
+    <h2>¿Listo para <span>transformar</span><br>su hotel?</h2>
+    <p>Solicite una demo gratuita adaptada a su establecimiento.<br>Sin compromiso y sin instalaciones necesarias.</p>
+  </div>
+
+  <form class="contacto-form reveal" onsubmit="enviarFormulario(event)">
+    <div class="form-row">
+      <div class="form-field">
+        <label>Nombre</label>
+        <input type="text" placeholder="Su nombre" required>
+      </div>
+      <div class="form-field">
+        <label>Hotel</label>
+        <input type="text" placeholder="Nombre del establecimiento" required>
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-field">
+        <label>Email</label>
+        <input type="email" placeholder="email@suhotel.com" required>
+      </div>
+      <div class="form-field">
+        <label>Habitaciones</label>
+        <select>
+          <option value="">Seleccionar...</option>
+          <option>Menos de 50</option>
+          <option>50 – 100</option>
+          <option>100 – 200</option>
+          <option>Más de 200</option>
+        </select>
+      </div>
+    </div>
+    <div class="form-field">
+      <label>Mensaje (opcional)</label>
+      <textarea placeholder="Cuéntenos sobre su establecimiento o dudas que tenga..."></textarea>
+    </div>
+    <button type="submit" class="form-submit">SOLICITAR DEMO GRATUITA</button>
+    <p id="form-msg" style="text-align:center;font-size:13px;color:var(--gold);display:none;margin-top:8px;">✅ Mensaje enviado. Le contactaremos en menos de 24 horas.</p>
+  </form>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div>
+    <div class="footer-brand">
+      ARTEMIS <span>HMS</span>
+    </div>
+    <div class="footer-sub">Hotel Management System · Designed by Danivia World Technologies</div>
+  </div>
+  <div class="footer-links">
+    <a href="#modulos">Módulos</a>
+    <a href="#precios">Precios</a>
+    <a href="#contacto">Contacto</a>
+    <a href="mailto:info@artemishms.com">info@artemishms.com</a>
+    <a href="https://app.artemishms.com">Acceder al HMS</a>
+  </div>
+  <div class="footer-copy">© 2026 Danivia World Technologies · Todos los derechos reservados · artemishms.com</div>
+</footer>
+
+<script>
+// Reveal on scroll
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if(e.isIntersecting) {
+      e.target.classList.add('visible');
+      observer.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.1 });
+
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+// Form
+function enviarFormulario(e) {
+  e.preventDefault();
+  const btn = e.target.querySelector('.form-submit');
+  const msg = document.getElementById('form-msg');
+  btn.textContent = 'ENVIANDO...';
+  btn.disabled = true;
+  setTimeout(() => {
+    msg.style.display = 'block';
+    btn.textContent = '✅ ENVIADO';
+    e.target.reset();
+  }, 1000);
+}
+</script>
+</body>
+</html>
